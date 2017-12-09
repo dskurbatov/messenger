@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/dskurbatov/messenger",
   "dependencies": {
-    "koa": "^2.4.1"
+    "koa": "^2.4.1",
+    "koa-static": "^4.0.2"
   }
 }
