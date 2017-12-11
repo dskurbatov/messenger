@@ -1,7 +1,14 @@
 import React from 'react'
 
-export default class App extends React.Component {
-	render(){
-		return <h1>This is React</h1>
-	}
+export const Counter = ({ value, onIncreament, onDecreament }) => {
+	return (
+		<div>
+			<h1>{value}</h1>
+			<button onClick={onIncreament}>+</button>
+			<button onClick={onDecreament}>-</button>
+		</div>)
 }
+
+
+
+

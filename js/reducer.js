@@ -1,4 +1,4 @@
-const counter = (state = 0, action) => {
+export const reducer = (state = 0, action) => {
 	switch(action.type){
 		case 'INCREAMENT':
 			return state + 1
@@ -10,6 +10,6 @@ const counter = (state = 0, action) => {
 }
 
 
-module.exports = {
-	counter
-}
+// module.exports = {
+// 	counter
+// }

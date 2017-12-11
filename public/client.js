@@ -1,11 +1,25 @@
-//const { createStore } = require('redux')
-//const { counter } = require('../js/reducer')
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from '../components/app'
+import { Counter } from '../components/app'
+import { createStore } from 'redux'
+import { reducer } from '../js/reducer'
 
-const Hello = (props) => {
-	return <h1>{props.hello}</h1> 
+
+const store = createStore(reducer)
+
+const render = () => {
+	ReactDOM.render(
+		<Counter 
+		value={store.getState()}
+		onIncreament={() => {
+			store.dispatch({type: 'INCREAMENT'})
+		}}
+		onDecreament={() => {
+			store.dispatch({type: 'DECREAMENT'})
+		}} />, 
+		document.getElementById('root')
+	)
 }
 
-ReactDOM.render(<Hello hello="HEY"/>, document.getElementById('root'))
+store.subscribe(render)
+render()
