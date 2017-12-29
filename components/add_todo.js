@@ -1,12 +1,18 @@
 import React from 'react'
+import store from '../js/store'
 
-export const AddTodo = ({ onAddTodo }) => {
+let indexTodo = 0
+export const AddTodo = () => {
 	let input
 	return (
 		<div>
 			<input ref={node => input = node}/>
 			<button onClick={() => {
-				onAddTodo(input.value)
+				store.dispatch({
+					type: 'ADD_TODO',
+					id: indexTodo++,
+					text: input.value
+				})
 				input.value = ''
 			}}>
 				Add Todo
