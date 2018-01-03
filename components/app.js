@@ -1,14 +1,17 @@
 import React from 'react'
+import Footer from '../components/filters'
+import AddTodo from '../components/add_todo'
+import VisibleTodos from '../components/todo_list'
 
-export const Counter = ({ value, onIncreament, onDecreament }) => {
+
+const TodoApp = () => {
 	return (
 		<div>
-			<h1>{value}</h1>
-			<button onClick={onIncreament}>+</button>
-			<button onClick={onDecreament}>-</button>
-		</div>)
+			<AddTodo />
+			<VisibleTodos />
+			<Footer />
+		</div>
+	)
 }
 
-
-
-
+export default TodoApp

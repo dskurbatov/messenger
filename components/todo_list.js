@@ -1,6 +1,7 @@
 import React from 'react'
 import { getVisibleTodos } from '../js/reducer'
-import store from '../js/store'
+import { connect } from 'react-redux'
+import toggleTodo from '../actions/toggle_todo'
 
 const Todo = ({onClick, complete, text}) => {
 	return( 
@@ -27,32 +28,18 @@ const TodoList = ({todos, onTodoClick}) => {
 	)
 }
 
-export default class VisibleTodos extends React.Component {
-	componentDidMount(){
-		this.unsubscribe = store.subscribe(() => {
-			this.forceUpdate()
-		})
-	}
-
-	componentWillUnmount(){
-		this.unsubscribe()
-	}
-
-
-	render(){
-		const props = this.props
-		const state = store.getState()
-
-		return(
-			<TodoList 
-				todos={getVisibleTodos(state.todos, state.visibilityFilter)}
-				onTodoClick={(id) => {
-					store.dispatch({
-						type: 'TOGGLE_TODO',
-						id
-					})
-				}}
-			/>
-		)
+const mapStateToProps = (state) => {
+	return {
+		todos: getVisibleTodos(state.todos, state.visibilityFilter)
 	}
 }
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onTodoClick: (id) => {
+			dispatch(toggleTodo(id))
+		}
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList)

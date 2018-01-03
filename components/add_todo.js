@@ -1,22 +1,21 @@
 import React from 'react'
-import store from '../js/store'
+import { connect } from 'react-redux'
+import addTodo from '../actions/add_todo'
 
-let indexTodo = 0
-export const AddTodo = () => {
+const AddTodo = ({dispatch}) => {
 	let input
 	return (
 		<div>
 			<input ref={node => input = node}/>
-			<button onClick={() => {
-				store.dispatch({
-					type: 'ADD_TODO',
-					id: indexTodo++,
-					text: input.value
-				})
-				input.value = ''
+			<button onClick={() => { 
+					dispatch(addTodo(input.value))
+					input.value = ''
 			}}>
 				Add Todo
 			</button>
 		</div>	
 	)
 }
+
+export default connect()(AddTodo)
+

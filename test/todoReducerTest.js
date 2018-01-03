@@ -173,3 +173,9 @@ describe('todoApp', () => {
 		assert.deepEqual(todoApp(stateBefore, action), stateAfter)
 	})
 })
+
+describe('compose()', () => {
+	it('returns functions', () => {
+		
+	})
+})

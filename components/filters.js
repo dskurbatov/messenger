@@ -1,21 +1,7 @@
 import React from 'react'
-import store from '../js/store'
+import { connect } from 'react-redux'
+import setFilter from '../actions/set_filter'
 
-// const FilterLink = ({filter, currentFilter, children, onClick}) => {
-// 	if(filter === currentFilter){
-// 		return <span>{children}</span>
-// 	}
-// 	return(
-// 		<a href="#"
-// 			onClick={(e) => {
-// 				e.preventDefault()
-// 				onClick(filter)
-// 			}}
-// 		>
-// 	{children}
-// 	</a>
-// 	)
-// }
 const Link = ({active, children, onClick}) => {
 	if(active){
 		return <span>{children}</span>
@@ -33,41 +19,23 @@ const Link = ({active, children, onClick}) => {
 	)
 }
 
-class FilterLink extends React.Component {
-	componentDidMount(){
-		this.unsubscribe = store.subscribe(() => {
-			this.forceUpdate()
-		})
-	}
-
-	componentWillUnmount(){
-		this.unsubscribe()
-	}
-
-	render(){
-		const props = this.props
-		const state = store.getState()
-
-		return(
-			<Link 
-				active={
-					props.filter === state.visibilityFilter
-				}
-
-				onClick={() => {
-					store.dispatch({
-						type: 'SET_VISIBILITY_FILTER',
-						filter: props.filter
-					})
-				}}
-			>
-			{props.children}
-			</Link>
-		)
+const mapStateToProps = (state, ownProps) => {
+	return {
+		active: state.visibilityFilter === ownProps.filter
 	}
 }
 
-export const Footer = () => {
+const mapDispatchToProps = (dispatch, ownProps) => {
+	return {
+		onClick: () => {
+			dispatch(setFilter(ownProps.filter))
+		}
+	}
+}
+
+const FilterLink = connect(mapStateToProps, mapDispatchToProps)(Link)
+
+const Footer = () => {
 	return (
 		<p>
 			Show:{' '}
@@ -79,3 +47,5 @@ export const Footer = () => {
 		</p>
 	)
 }
+
+export default Footer
