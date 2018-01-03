@@ -1,39 +1,53 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import setFilter from '../actions/set_filter'
+import { NavLink } from 'react-router-dom'
+// import { connect } from 'react-redux'
+// import setFilter from '../actions/set_filter'
 
-const Link = ({active, children, onClick}) => {
-	if(active){
-		return <span>{children}</span>
-	}
-	return( 
-		<a 
-			href="#"
-			onClick={(e) => {
-				e.preventDefault()
-				onClick()
+// const Link = ({active, children, onClick}) => {
+// 	if(active){
+// 		return <span>{children}</span>
+// 	}
+// 	return( 
+// 		<a 
+// 			href="#"
+// 			onClick={(e) => {
+// 				e.preventDefault()
+// 				onClick()
+// 			}}
+// 		>
+// 		{children}
+// 		</a>
+// 	)
+// }
+
+// const mapStateToProps = (state, ownProps) => {
+// 	return {
+// 		active: state.visibilityFilter === ownProps.filter
+// 	}
+// }
+
+// const mapDispatchToProps = (dispatch, ownProps) => {
+// 	return {
+// 		onClick: () => {
+// 			dispatch(setFilter(ownProps.filter))
+// 		}
+// 	}
+// }
+
+// const FilterLink = connect(mapStateToProps, mapDispatchToProps)(Link)
+const FilterLink = ({ filter, children }) => {
+	return (
+		<NavLink
+			to={filter === 'SHOW_ALL' ? '/' : `/${filter}`}
+			activeStyle={{
+				textDecoration: 'none',
+				color: 'black'
 			}}
 		>
-		{children}
-		</a>
+			{children}
+		</NavLink>
 	)
 }
-
-const mapStateToProps = (state, ownProps) => {
-	return {
-		active: state.visibilityFilter === ownProps.filter
-	}
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-	return {
-		onClick: () => {
-			dispatch(setFilter(ownProps.filter))
-		}
-	}
-}
-
-const FilterLink = connect(mapStateToProps, mapDispatchToProps)(Link)
 
 const Footer = () => {
 	return (
